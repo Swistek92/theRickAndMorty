@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import axios from 'axios';
+import React, { useEffect } from 'react';
 import './App.css';
+import Header from './Components/Header';
+import Information from './Components/Information';
+import { useLocalStorage } from './useLocalStorage';
 
-function App() {
+const App = () => {
+  const [state, setState] = useLocalStorage('characters', []);
+  useEffect(() => {
+    if (state!.length < 10) {
+      axios
+        .get('https://rickandmortyapi.com/api/character')
+        .then((res) => {
+          setState(res.data.results);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <div className='App'>
+        <Header />
+        <Information chars={state} />
+      </div>
+    </React.Fragment>
   );
-}
+};
 
 export default App;
