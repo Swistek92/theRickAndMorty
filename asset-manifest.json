@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Swistek92/theRickAndMorty/static/css/main.5724dbc4.css",
+    "main.js": "/Swistek92/theRickAndMorty/static/js/main.1f19004f.js",
+    "index.html": "/Swistek92/theRickAndMorty/index.html",
+    "main.5724dbc4.css.map": "/Swistek92/theRickAndMorty/static/css/main.5724dbc4.css.map",
+    "main.1f19004f.js.map": "/Swistek92/theRickAndMorty/static/js/main.1f19004f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5724dbc4.css",
+    "static/js/main.1f19004f.js"
+  ]
+}
