@@ -23,7 +23,7 @@ const App = () => {
   return (
     <React.Fragment>
       <div className='App'>
-        <Header />
+        <Header chars={state} />
         <Information chars={state} />
       </div>
     </React.Fragment>

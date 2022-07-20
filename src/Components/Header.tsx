@@ -5,14 +5,26 @@ import { useDispatch } from 'react-redux';
 import classes from './Header.module.css';
 import { searchAction } from '../store/search-slice';
 import { useState } from 'react';
-const Header = () => {
-  const [searchValue, setSearchValue] = useState('');
-  const dispatch = useDispatch();
+const Header = (props: any) => {
+  const { chars } = props;
+  const species: string[] = [];
+  const origin: string[] = [];
+  const status: string[] = [];
 
-  const setSearch = (e: any) => {
-    dispatch(searchAction.changeSearch(searchValue));
-    console.log(searchValue);
-  };
+  chars.forEach((e: { species: ''; origin: { name: '' }; status: '' }) => {
+    if (!species.includes(e.species)) {
+      species.push(e.species);
+    }
+    if (!origin.includes(e.origin.name)) {
+      origin.push(e.origin.name);
+    }
+    if (!status.includes(e.status)) {
+      status.push(e.status);
+    }
+  });
+
+  console.log(species);
+  const dispatch = useDispatch();
 
   return (
     <header className={classes.header}>
@@ -25,13 +37,13 @@ const Header = () => {
       </InputGroup>
       <ul>
         <li>
-          <Dropdown name={'Species'} option={['1', '2']} />
+          <Dropdown name={'Species'} option={species} />
         </li>
         <li>
-          <Dropdown name={'orgin'} option={['1', '2']} />
+          <Dropdown name={'origin'} option={origin} />
         </li>
         <li>
-          <Dropdown name={'status'} option={['1', '2']} />
+          <Dropdown name={'status'} option={status} />
         </li>
         <li>
           <button className={classes.btnChange}>Change status</button>

@@ -19,7 +19,7 @@ const DropdownComonent = (props: any) => {
       <Dropdown.Menu>
         {option.map((e: any) => {
           return (
-            <Dropdown.Item key={e} id={e} onClick={clickHandler}>
+            <Dropdown.Item key={e} id={e} onChange={(e) => console.log(e)}>
               {e}
             </Dropdown.Item>
           );
