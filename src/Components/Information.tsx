@@ -4,47 +4,43 @@ import InformationHeader from './Top';
 // import character from '../data/chracets.json';
 import { useSelector } from 'react-redux';
 const Information = (props: any) => {
+  const { chars } = props;
   const search = useSelector(
     (state: { search: string }) => state.search.search
   );
+  // const Species = useSelector(
+  //   (state: { search: { species: string } }) => state.search.species
+  // );
 
-  console.log('information', search);
-  const { chars } = props;
-
-  const filtered = chars.filter((e: { name: '' }) =>
-    JSON.stringify(e.name)
-      .toLowerCase()
-      .includes(search.toString().toLowerCase())
+  const Origin = useSelector(
+    (state: { search: { origin: string; species: string; status: string } }) =>
+      state.search
   );
 
-  filtered.forEach((e: any) => {
-    console.log(e.orgin);
-  });
+  console.log(Origin);
 
-  // {
-  //       "id": 17,
-  //       "name": "Annie",
-  //       "status": "Alive",
-  //       "species": "Human",
-  //       "type": "",
-  //       "gender": "Female",
-  //       "origin": {
-  //         "name": "Earth (C-137)",
-  //         "url": "https://rickandmortyapi.com/api/location/1"
-  //       },
-  //       "location": {
-  //         "name": "Anatomy Park",
-  //         "url": "https://rickandmortyapi.com/api/location/5"
-  //       },
-  //       "image": "https://rickandmortyapi.com/api/character/avatar/17.jpeg",
-  //       "episode": [
-  //         "https://rickandmortyapi.com/api/episode/3"
-  //       ],
-  //       "url": "https://rickandmortyapi.com/api/character/17",
-  //       "created": "2017-11-04T22:21:24.481Z"
-  //     }
+  let filtered = chars.filter(
+    (e: { name: string; origin: { name: string }; species: string }) =>
+      JSON.stringify(e.name)
+        .toLowerCase()
+        .includes(search.toString().toLowerCase())
+  );
+  console.log(Origin.origin);
+  if (Origin.origin !== 'off') {
+    filtered = filtered.filter(
+      (e: { name: string; origin: { name: string }; species: string }) => {
+        return e.origin.name === Origin.origin;
+      }
+    );
+  }
+  if (Origin.species !== 'off') {
+    filtered = filtered.filter(
+      (e: { name: string; origin: { name: string }; species: string }) => {
+        return e.species === Origin.species;
+      }
+    );
+  }
 
-  console.log(search.length);
   return (
     <div className={classes.main}>
       <p>{JSON.stringify(search)}</p>
@@ -52,6 +48,7 @@ const Information = (props: any) => {
 
       {filtered.map((e: any) => (
         <Character
+          key={e.name}
           name={e.name}
           avatar={e.image}
           origin={e.origin.name}

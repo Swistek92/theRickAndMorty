@@ -1,14 +1,14 @@
 import Dropdown from './Dropdown';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import classes from './Header.module.css';
 import { searchAction } from '../store/search-slice';
 import { useState } from 'react';
 const Header = (props: any) => {
   const { chars } = props;
-  const species: string[] = [];
-  const origin: string[] = [];
+  const species: string[] = ['off'];
+  const origin: string[] = ['off'];
   const status: string[] = [];
 
   chars.forEach((e: { species: ''; origin: { name: '' }; status: '' }) => {
@@ -23,7 +23,6 @@ const Header = (props: any) => {
     }
   });
 
-  console.log(species);
   const dispatch = useDispatch();
 
   return (
@@ -40,10 +39,10 @@ const Header = (props: any) => {
           <Dropdown name={'Species'} option={species} />
         </li>
         <li>
-          <Dropdown name={'origin'} option={origin} />
+          <Dropdown name={'Origin'} option={origin} />
         </li>
         <li>
-          <Dropdown name={'status'} option={status} />
+          <Dropdown name={'Status'} option={status} />
         </li>
         <li>
           <button className={classes.btnChange}>Change status</button>

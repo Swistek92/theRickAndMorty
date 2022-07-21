@@ -1,14 +1,13 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { searchAction } from '../store/search-slice';
+
 const DropdownComonent = (props: any) => {
-  const [select, setSelect] = useState('');
+  const dispatch = useDispatch();
   const { name, option } = props;
 
-  const clickHandler = (e: any) => {
-    e.preventDefault();
-    setSelect(e.target.id);
-    console.log(select);
-  };
+  const nameaction = name.name;
 
   return (
     <Dropdown>
@@ -17,12 +16,40 @@ const DropdownComonent = (props: any) => {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        {option.map((e: any) => {
-          return (
-            <Dropdown.Item key={e} id={e} onChange={(e) => console.log(e)}>
-              {e}
-            </Dropdown.Item>
-          );
+        {option.map((e: any, i: any) => {
+          if (name === 'Species') {
+            return (
+              <Dropdown.Item
+                key={e}
+                id={e}
+                onClick={(e) => dispatch(searchAction.setSpecies(option[i]))}
+              >
+                {e}
+              </Dropdown.Item>
+            );
+          }
+          if (name === 'Origin') {
+            return (
+              <Dropdown.Item
+                key={e}
+                id={e}
+                onClick={(e) => dispatch(searchAction.setOrigin(option[i]))}
+              >
+                {e}
+              </Dropdown.Item>
+            );
+          }
+          if (name === 'Status') {
+            return (
+              <Dropdown.Item
+                key={e}
+                id={e}
+                onClick={(e) => dispatch(searchAction.setStatus(option[i]))}
+              >
+                {e}
+              </Dropdown.Item>
+            );
+          }
         })}
       </Dropdown.Menu>
     </Dropdown>
