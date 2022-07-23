@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const searchSlice = createSlice({
   name: 'search',
-  initialState: { search: '', species: 'off', origin: 'off', status: 'off' },
+  initialState: { search: '', species: 'off', origin: 'off' },
   reducers: {
     changeSearch(state, action) {
       state.search = action.payload;
@@ -12,9 +12,6 @@ const searchSlice = createSlice({
     },
     setOrigin(state, action) {
       state.origin = action.payload;
-    },
-    setStatus(state, action) {
-      state.status = action.payload;
     },
   },
 });

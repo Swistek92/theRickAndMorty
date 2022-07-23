@@ -8,16 +8,11 @@ const Information = (props: any) => {
   const search = useSelector(
     (state: { search: string }) => state.search.search
   );
-  // const Species = useSelector(
-  //   (state: { search: { species: string } }) => state.search.species
-  // );
 
   const Origin = useSelector(
     (state: { search: { origin: string; species: string; status: string } }) =>
       state.search
   );
-
-  console.log(Origin);
 
   let filtered = chars.filter(
     (e: { name: string; origin: { name: string }; species: string }) =>
@@ -25,7 +20,6 @@ const Information = (props: any) => {
         .toLowerCase()
         .includes(search.toString().toLowerCase())
   );
-  console.log(Origin.origin);
   if (Origin.origin !== 'off') {
     filtered = filtered.filter(
       (e: { name: string; origin: { name: string }; species: string }) => {

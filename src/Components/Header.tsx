@@ -5,25 +5,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import classes from './Header.module.css';
 import { searchAction } from '../store/search-slice';
 import { useState } from 'react';
+import { selectActions } from '../store/select-slice';
+import StatusDropdown from './StatusDropdown';
 const Header = (props: any) => {
-  const { chars } = props;
+  const dispatch = useDispatch();
+  const selectCharacter = useSelector((state: any) => state.select.select);
+  const selectStatus = useSelector((state: any) => state.select.status);
+  const selectItems = useSelector((state: any) => state.select.select);
+  const { chars, removeCharacter, changeStatus } = props;
   const species: string[] = ['off'];
   const origin: string[] = ['off'];
   const status: string[] = [];
 
-  chars.forEach((e: { species: ''; origin: { name: '' }; status: '' }) => {
-    if (!species.includes(e.species)) {
-      species.push(e.species);
+  chars.forEach(
+    (e: { species: string; origin: { name: string }; status: string }) => {
+      if (!species.includes(e.species)) {
+        species.push(e.species);
+      }
+      if (!origin.includes(e.origin.name)) {
+        origin.push(e.origin.name);
+      }
+      if (!status.includes(e.status) && selectItems.length === 1) {
+        status.push(e.status);
+      }
     }
-    if (!origin.includes(e.origin.name)) {
-      origin.push(e.origin.name);
-    }
-    if (!status.includes(e.status)) {
-      status.push(e.status);
-    }
-  });
-
-  const dispatch = useDispatch();
+  );
 
   return (
     <header className={classes.header}>
@@ -42,13 +48,22 @@ const Header = (props: any) => {
           <Dropdown name={'Origin'} option={origin} />
         </li>
         <li>
-          <Dropdown name={'Status'} option={status} />
+          <StatusDropdown name={'Status'} option={status} chars={chars} />
         </li>
+        {selectItems.length < 2 && (
+          <li>
+            <button className={classes.btnChange} onClick={changeStatus}>
+              Change status
+            </button>
+          </li>
+        )}
         <li>
-          <button className={classes.btnChange}>Change status</button>
-        </li>
-        <li>
-          <button className={classes.btnRemove}>Remove Characters</button>
+          <button
+            onClick={() => removeCharacter('asd')}
+            className={classes.btnRemove}
+          >
+            Remove Characters
+          </button>
         </li>
       </ul>
     </header>

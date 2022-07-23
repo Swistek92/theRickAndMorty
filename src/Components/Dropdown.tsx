@@ -1,13 +1,10 @@
 import Dropdown from 'react-bootstrap/Dropdown';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { searchAction } from '../store/search-slice';
 
 const DropdownComonent = (props: any) => {
   const dispatch = useDispatch();
-  const { name, option } = props;
-
-  const nameaction = name.name;
+  let { name, option } = props;
 
   return (
     <Dropdown>
@@ -34,17 +31,6 @@ const DropdownComonent = (props: any) => {
                 key={e}
                 id={e}
                 onClick={(e) => dispatch(searchAction.setOrigin(option[i]))}
-              >
-                {e}
-              </Dropdown.Item>
-            );
-          }
-          if (name === 'Status') {
-            return (
-              <Dropdown.Item
-                key={e}
-                id={e}
-                onClick={(e) => dispatch(searchAction.setStatus(option[i]))}
               >
                 {e}
               </Dropdown.Item>

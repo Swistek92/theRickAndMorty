@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classes from './Character.module.css';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { selectActions } from '../store/select-slice';
 const Character = (props: any) => {
+  const dispatch = useDispatch();
+
   const [org, setOrg] = useState({ name: '' });
   const { name, avatar, episodes, origin, status } = props;
 
@@ -17,9 +21,20 @@ const Character = (props: any) => {
     getEpisode();
   }, [episodes]);
 
+  const changeSelect = (e: any) => {
+    if (e.target.checked) {
+      dispatch(selectActions.addSelect(name));
+    } else {
+      dispatch(selectActions.removeSelect(name));
+    }
+  };
+
   return (
     <div className={classes.main}>
       <ul>
+        <li>
+          <input type='checkbox' onChange={changeSelect}></input>
+        </li>
         <li>
           <p>{name} </p>
         </li>
