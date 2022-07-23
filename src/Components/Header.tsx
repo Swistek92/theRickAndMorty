@@ -13,8 +13,8 @@ const Header = (props: any) => {
   const selectStatus = useSelector((state: any) => state.select.status);
   const selectItems = useSelector((state: any) => state.select.select);
   const { chars, removeCharacter, changeStatus } = props;
-  const species: string[] = ['off'];
-  const origin: string[] = ['off'];
+  const species: string[] = [];
+  const origin: string[] = [];
   const status: string[] = [];
 
   chars.forEach(

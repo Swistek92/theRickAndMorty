@@ -9,9 +9,8 @@ const Information = (props: any) => {
     (state: { search: string }) => state.search.search
   );
 
-  const Origin = useSelector(
-    (state: { search: { origin: string; species: string; status: string } }) =>
-      state.search
+  const propsSearch = useSelector(
+    (state: { search: { origin: string[]; species: string[] } }) => state.search
   );
 
   let filtered = chars.filter(
@@ -20,17 +19,18 @@ const Information = (props: any) => {
         .toLowerCase()
         .includes(search.toString().toLowerCase())
   );
-  if (Origin.origin !== 'off') {
+  console.log(propsSearch);
+  if (propsSearch.origin.length > 1) {
     filtered = filtered.filter(
       (e: { name: string; origin: { name: string }; species: string }) => {
-        return e.origin.name === Origin.origin;
+        return propsSearch.origin.includes(e.origin.name);
       }
     );
   }
-  if (Origin.species !== 'off') {
+  if (propsSearch.species.length > 1) {
     filtered = filtered.filter(
       (e: { name: string; origin: { name: string }; species: string }) => {
-        return e.species === Origin.species;
+        return propsSearch.species.includes(e.species);
       }
     );
   }
