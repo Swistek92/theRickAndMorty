@@ -34,9 +34,10 @@ const Header = (props: any) => {
   return (
     <header className={classes.header}>
       <InputGroup>
-        <InputGroup>Search</InputGroup>
+        {/* <InputGroup>Search</InputGroup> */}
         <Form.Control
           onChange={(e) => dispatch(searchAction.changeSearch(e.target.value))}
+          className={classes.search}
           aria-label='First name'
         />
       </InputGroup>

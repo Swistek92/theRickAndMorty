@@ -8,6 +8,9 @@
   color: white;
   padding: 0 10%;
 }
+.search {
+  max-width: 30%;
+}
 
 .header ul {
   display: flex;

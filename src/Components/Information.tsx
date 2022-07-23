@@ -40,16 +40,42 @@ const Information = (props: any) => {
       <p>{JSON.stringify(search)}</p>
       <InformationHeader />
 
-      {filtered.map((e: any) => (
-        <Character
-          key={e.name}
-          name={e.name}
-          avatar={e.image}
-          origin={e.origin.name}
-          episodes={e.episode[0]}
-          status={e.status}
-        />
-      ))}
+      {filtered.map((e: any) => {
+        const randomEpisodes = [];
+        const randomNumber = () => Math.floor(Math.random() * e.episode.length);
+        const numberOne = randomNumber();
+        let numberTwo = randomNumber();
+
+        if (e.episode.length > 1) {
+          const check = () => {
+            if (numberOne !== numberTwo) {
+              return;
+            }
+            if (numberOne === numberTwo) {
+              // console.log('REKURENCJA');
+              numberTwo = randomNumber();
+              check();
+            }
+          };
+          check();
+          randomEpisodes.push(e.episode[numberOne]);
+          randomEpisodes.push(e.episode[numberTwo]);
+        } else {
+          randomEpisodes.push(e.episode[numberOne]);
+          // console.log('oneNumber');
+        }
+
+        return (
+          <Character
+            key={e.name}
+            name={e.name}
+            avatar={e.image}
+            origin={e.origin.name}
+            episodes={randomEpisodes}
+            status={e.status}
+          />
+        );
+      })}
     </div>
   );
 };
