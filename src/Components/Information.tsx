@@ -113,12 +113,22 @@ const Information = (props: any) => {
           />
         );
       })}
-      <button onClick={previousPage}>Previous</button>
-      {pageNumber.map((e) => {
-        return <button onClick={() => exactPage(e)}> {e}</button>;
-      })}
+      <div className={classes.btns}>
+        <button onClick={previousPage}>&#x2190;</button>
+        {pageNumber.map((e) => {
+          return (
+            <button
+              style={{ background: e === currentPage ? 'grey' : 'white' }}
+              onClick={() => exactPage(e)}
+            >
+              {' '}
+              {e}
+            </button>
+          );
+        })}
 
-      <button onClick={nextPage}>Next</button>
+        <button onClick={nextPage}>&#x2192;</button>
+      </div>
     </div>
   );
 };
