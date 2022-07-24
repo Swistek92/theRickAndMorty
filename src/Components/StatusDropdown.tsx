@@ -1,6 +1,7 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectActions } from '../store/select-slice';
+import classes from './StatusDropdown.module.css';
 
 const StatusDropdown = (props: any) => {
   const selectCharacter = useSelector((state: any) => state.select.select);
@@ -31,7 +32,7 @@ const StatusDropdown = (props: any) => {
         {name === 'Status' && Boolean(selectStatus) ? selectStatus : name}
       </Dropdown.Toggle>
 
-      <Dropdown.Menu>
+      <Dropdown.Menu className={classes.StatusDropdown}>
         {option.map((e: any, i: any) => {
           return (
             <Dropdown.Item

@@ -1,9 +1,8 @@
 import Character from './Character';
 import classes from './Information.module.css';
 import InformationHeader from './Top';
-// import character from '../data/chracets.json';
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 const Information = (props: any) => {
   const { chars, charsPerPage, loading } = props;
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,9 +43,7 @@ const Information = (props: any) => {
   // pagination
   let numbersOfPage: Number;
   if (Number.isInteger(filtered.length / charsPerPage)) {
-    console.log('isIntiger');
     numbersOfPage = filtered.length / charsPerPage;
-    console.log(numbersOfPage);
   } else {
     numbersOfPage = Math.floor(filtered.length / charsPerPage) + 1;
   }
@@ -118,10 +115,11 @@ const Information = (props: any) => {
         {pageNumber.map((e) => {
           return (
             <button
-              style={{ background: e === currentPage ? 'grey' : 'white' }}
+              key={e}
+              // style={{ background: e === currentPage ? 'grey' : 'white' }}
+              className={`${e === currentPage && classes.include}`}
               onClick={() => exactPage(e)}
             >
-              {' '}
               {e}
             </button>
           );

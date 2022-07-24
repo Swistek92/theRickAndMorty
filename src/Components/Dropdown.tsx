@@ -1,7 +1,7 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchAction } from '../store/search-slice';
-
+import classes from './Dropdown.module.css';
 const DropdownComonent = (props: any) => {
   const propsSearch = useSelector(
     (state: { search: { origin: string[]; species: string[] } }) => state.search
@@ -16,13 +16,14 @@ const DropdownComonent = (props: any) => {
         {name}
       </Dropdown.Toggle>
 
-      <Dropdown.Menu>
+      <Dropdown.Menu className={classes.dropdown}>
         {option.map((e: any, i: any) => {
           if (name === 'Species') {
             const include = propsSearch.species.includes(e);
             return (
               <Dropdown.Item
-                style={{ background: include ? 'grey' : 'white' }}
+                // style={{ background: include ? 'grey' : 'white' }}
+                className={`${include && classes.include}`}
                 key={e}
                 id={e}
                 onClick={(e) => dispatch(searchAction.toggleSpecies(option[i]))}
@@ -36,7 +37,7 @@ const DropdownComonent = (props: any) => {
 
             return (
               <Dropdown.Item
-                style={{ background: include ? 'grey' : 'white' }}
+                className={`${include && classes.include}`}
                 key={e}
                 id={e}
                 onClick={(e) => dispatch(searchAction.toggleOrigin(option[i]))}

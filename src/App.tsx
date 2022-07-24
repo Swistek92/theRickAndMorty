@@ -1,11 +1,8 @@
 import axios from 'axios';
-import { stat } from 'fs';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import './App.css';
 import Header from './Components/Header';
 import Information from './Components/Information';
-import { searchAction } from './store/search-slice';
 import { selectActions } from './store/select-slice';
 import { useLocalStorage } from './useLocalStorage';
 
@@ -37,7 +34,7 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const removeCharacter = (name: any) => {
+  const removeCharacter = () => {
     const newList = state?.filter(
       (e: any) => !selectCharacter.includes(e.name)
     );
@@ -59,8 +56,6 @@ const App = () => {
           return e;
         }
       });
-      console.log(selectCharacter);
-      console.log(selectStatus);
       // @ts-ignore: Unreachable code error
       setState(newState);
     }
@@ -68,7 +63,7 @@ const App = () => {
 
   return (
     <React.Fragment>
-      <div className='App'>
+      <div>
         <Header
           chars={state}
           removeCharacter={removeCharacter}

@@ -4,9 +4,7 @@ const InformationHeader = () => {
   return (
     <div className={classes.header}>
       <ul>
-        <li>
-          <input type='checkbox'></input>
-        </li>
+        <li>#</li>
         <li>Name</li>
         <li>Avatar</li>
         <li>Origin</li>
