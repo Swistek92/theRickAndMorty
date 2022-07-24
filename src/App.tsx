@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import { stat } from 'fs';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import Header from './Components/Header';
@@ -12,18 +13,26 @@ const App = () => {
   const dispatch = useDispatch();
   const selectCharacter = useSelector((state: any) => state.select.select);
   const selectStatus = useSelector((state: any) => state.select.status);
+  const charsPerPage = 5;
 
   const [state, setState] = useLocalStorage('characters', []);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
+    const fetchChars = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(
+          'https://rickandmortyapi.com/api/character'
+        );
+
+        setState(res.data.results);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     if (state!.length < 1) {
-      axios
-        .get('https://rickandmortyapi.com/api/character')
-        .then((res) => {
-          setState(res.data.results);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      fetchChars();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -50,8 +59,9 @@ const App = () => {
           return e;
         }
       });
+      console.log(selectCharacter);
+      console.log(selectStatus);
       // @ts-ignore: Unreachable code error
-
       setState(newState);
     }
   };
@@ -63,8 +73,13 @@ const App = () => {
           chars={state}
           removeCharacter={removeCharacter}
           changeStatus={changeStatus}
+          loading={loading}
         />
-        <Information chars={state} />
+        <Information
+          loading={loading}
+          charsPerPage={charsPerPage}
+          chars={state}
+        />
       </div>
     </React.Fragment>
   );

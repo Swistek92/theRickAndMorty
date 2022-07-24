@@ -11,12 +11,10 @@ const Character = (props: any) => {
 
   useEffect(() => {
     const getEpisode = async () => {
-      console.log(episodes.length);
       if (episodes.length > 1) {
         try {
           const ep1 = await axios.get(episodes[0]);
           const ep2 = await axios.get(episodes[1]);
-          console.log(ep1.data.name);
           setOrg([ep1.data.name, ep2.data.name]);
         } catch (error) {
           console.log(error);
@@ -40,7 +38,6 @@ const Character = (props: any) => {
       dispatch(selectActions.removeSelect(name));
     }
   };
-  console.log(org.length);
   return (
     <div
       className={classes.main}

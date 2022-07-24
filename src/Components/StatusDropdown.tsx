@@ -33,7 +33,6 @@ const StatusDropdown = (props: any) => {
 
       <Dropdown.Menu>
         {option.map((e: any, i: any) => {
-          console.log(option);
           return (
             <Dropdown.Item
               key={e}
